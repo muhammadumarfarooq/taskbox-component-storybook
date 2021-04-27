@@ -1,17 +1,17 @@
 import * as React from 'react';
+import { Story, Meta } from '@storybook/react';
 
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
-};
+} as Meta;
 
-const Template = (args: TaskComponentProps) => <Task {...args} />
+const Template: Story<TaskComponentProps> = (args) => <Task {...args} />
 
 export const Default = Template.bind({});
 
-//@ts-ignore
 Default.args = {
   task: {
     id: '1',
@@ -25,22 +25,28 @@ Default.args = {
   }
 };
 
+
 export const Pinned = Template.bind({});
-//@ts-ignore
+
 Pinned.args = {
   task: {
-    //@ts-ignore
-    ...Default.args.task,
+    id: '2',
+    title: 'Test Task',
     state: 'TASK_PINNED',
+    updatedAt: new Date()
   },
+  onArchiveTask: () => {
+  },
+  onPinTask: () => {
+  }
 };
 
 export const Archived = Template.bind({});
-//@ts-ignore
 Archived.args = {
   task: {
-    //@ts-ignore
-    ...Default.args.task,
+    id: '3',
+    title: 'Test Task',
+    updatedAt: new Date(),
     state: 'TASK_ARCHIVED',
   },
 };
