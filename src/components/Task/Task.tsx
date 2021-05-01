@@ -6,6 +6,7 @@ const Task = ({ task: { id, title, state }, onArchiveTask, onPinTask }: TaskComp
     <div className={`list-item ${state}`}>
       <label className="checkbox">
         <input
+          value={title}
           type="checkbox"
           defaultChecked={state === 'TASK_ARCHIVED'}
           disabled={true}
