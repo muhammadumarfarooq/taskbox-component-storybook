@@ -1,8 +1,20 @@
 import * as React from 'react';
 import Task from '../Task/Task';
 
+import { connect } from 'react-redux';
+import { archiveTask, pinTask, setLoading } from '../../lib/redux';
 
-const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }: TaskListProps): JSX.Element => {
+export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask, setLoading }: TaskListProps): JSX.Element => {
+  
+  React.useEffect(() => {
+    //a delay for 3 seconds to show loading component then show tasks
+    setTimeout(() => {
+      setLoading();
+    }, 3000);
+    //  eslint-disable-next-line
+  }, [])
+  
+  
   const events = {
     onPinTask,
     onArchiveTask,
@@ -29,7 +41,7 @@ const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }: TaskListProps): 
     );
   }
   
-  if ( tasks.length === 0 ) {
+  if ( tasks.every((task) => task.state === "TASK_ARCHIVED") ) {
     return (
       <div className="list-items">
         <div className="wrapper-message">
@@ -48,6 +60,23 @@ const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }: TaskListProps): 
       ))}
     </div>
   );
-}
+};
 
-export default TaskList;
+export default connect(
+  ({ tasks, loading }: TaskListProps) => {
+    
+    const archivedTasks = tasks.filter(task => task.state === "TASK_ARCHIVED");
+    const pinnedTasks = tasks.filter(task => task.state === "TASK_PINNED");
+    const inboxTasks = tasks.filter(task => task.state === "TASK_INBOX");
+    
+    return ( {
+      tasks: [...archivedTasks, ...pinnedTasks, ...inboxTasks],
+      loading
+    } )
+  },
+  dispatch => ( {
+    onArchiveTask: (id: string) => dispatch(archiveTask(id)),
+    onPinTask: (id: string) => dispatch(pinTask(id)),
+    setLoading: () => dispatch(setLoading())
+  } )
+)(TaskList);

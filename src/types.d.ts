@@ -17,6 +17,10 @@ interface TaskListProps {
   tasks: TaskInterface[]
   onPinTask: (id: string) => void
   onArchiveTask: (id: string) => void
+  setLoading: () => void
 }
 
-
+interface ReduxStateInterface {
+  tasks: TaskInterface[]
+  loading: boolean
+}

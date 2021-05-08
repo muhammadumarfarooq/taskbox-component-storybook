@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import TaskList from './TaskList';
-import * as TaskStories from '../Task/Task.stories';
+import { TaskList } from './TaskList';
 import { archivedTasksData, defaultTasksData, pinnedTasksData } from "../../constants/tasksHardcodedData";
 
 export default {
@@ -46,4 +45,6 @@ export const Empty = Template.bind({});
 Empty.args = {
   ...Loading.args,
   loading: false,
+  setLoading: () => {
+  }
 };

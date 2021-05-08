@@ -1164,6 +1164,9 @@ a:focus {
   position: relative;
   background: white;
   min-height: 288px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 3px 3px -2px rgba(0, 0, 0, 0.09), 0 3px 4px 0 rgba(0, 0, 0, 0.06), 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .list-items .select-placeholder {
